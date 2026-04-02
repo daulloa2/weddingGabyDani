@@ -51,10 +51,10 @@ const CountdownBanner = dynamic(() => import("@/components/CountdownBanner"), { 
 
 const WEDDING_DATE = new Date("2025-12-20T17:00:00");
 
-const CHURCH_NAME = "Iglesia San Isidro";
-const CHURCH_MAPS_URL = "https://maps.app.goo.gl/12A17Y3gianjggvA9";
-const RECEPTION_NAME = "Quinta Carbonero";
-const RECEPTION_MAPS_URL = "https://maps.app.goo.gl/kdwiUihm8pJUfiQv8";
+const CHURCH_NAME = "Iglesia de San Roque, Cuenca";
+const CHURCH_MAPS_URL = "https://maps.app.goo.gl/YRyZSh5wyinbugAH9";
+const RECEPTION_NAME = "Quinta Pomelé, Cuenca";
+const RECEPTION_MAPS_URL = "https://maps.app.goo.gl/hyzpdakVDWBAejcQA";
 
 export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?: string }) {
   const [prefillFamily, setPrefillFamily] = React.useState<Family | undefined>(undefined);
@@ -142,7 +142,7 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
         <HeroCover src="/assets/1.jpg" alt="Daniel y Nicole">
           <div className="no-auto-resize">
             <h1 className={`text-center text-[64px] sm:text-[100px] ${mr_de_haviland.className} text-white drop-shadow`}>
-              Daniel & Nicole
+              Daniel & Gabriela
             </h1>
             <p className={`mt-2 text-center text-white/90 text-[44px] sm:text-[50px] ${mr_de_haviland.className}`}>¡Nuestra Boda!</p>
           </div>
@@ -349,8 +349,8 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
               <VenueBlock
                 title="Ceremonia"
                 name={CHURCH_NAME}
-                address="Av. Pio Jaramillo Alvarado, Loja 110150"
-                time="04:00 PM"
+                address="Av Loja y Lorenzo Piedra, Cuenca"
+                time="05:00 PM"
                 mapUrl={CHURCH_MAPS_URL}
               />
 
@@ -375,8 +375,8 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
               <VenueBlock
                 title="Recepción"
                 name={RECEPTION_NAME}
-                address="Vía a Cuenca, barrio Carigán, Loja"
-                time="06:30 PM"
+                address="Calle Cultura Pirincay - 3064 y Autopista Cuenca - Azogues"
+                time="07:30 PM"
                 mapUrl={RECEPTION_MAPS_URL}
               />
             </div>
