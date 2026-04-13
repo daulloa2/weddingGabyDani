@@ -49,7 +49,7 @@ const rougeScript = Rouge_Script({ subsets: ["latin"], weight: "400", variable: 
 
 const CountdownBanner = dynamic(() => import("@/components/CountdownBanner"), { ssr: false });
 
-const WEDDING_DATE = new Date("2025-05-23T17:00:00");
+const WEDDING_DATE = new Date("2026-05-23T17:00:00");
 
 const CHURCH_NAME = "Iglesia de San Roque, Cuenca";
 const CHURCH_MAPS_URL = "https://maps.app.goo.gl/YRyZSh5wyinbugAH9";
