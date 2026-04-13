@@ -306,7 +306,7 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
                 icon={<Coins className="size-6" style={{ color: "#3579AD" }} />}
               >
                 <p className={`${tangerine.className} text-[26px] sm:text-[30px]`}>
-                  Manuel Villamagua & Elizabeth Torres
+                  David Rojas & Jesica Armijos
                 </p>
               </InfoCard>
 
@@ -316,7 +316,7 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
                 icon={<Infinity className="size-6" style={{ color: "#3579AD" }} />}
               >
                 <p className={`${tangerine.className} text-[26px] sm:text-[30px]`}>
-                  Carlos Ulloa & Eliza Márquez
+                  René Castanier & María Palacios
                 </p>
               </InfoCard>
             </div>
@@ -376,7 +376,7 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
                 title="Recepción"
                 name={RECEPTION_NAME}
                 address="Calle Cultura Pirincay - 3064 y Autopista Cuenca - Azogues"
-                time="07:30 PM"
+                time="08:00 PM"
                 mapUrl={RECEPTION_MAPS_URL}
               />
             </div>
@@ -418,10 +418,10 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
           >
             <Timeline
               items={[
-                { time: "4:00 PM", label: "Ceremonia", icon: "/assets/TimelineSVG/church.svg" },
+                { time: "5:00 PM", label: "Ceremonia", icon: "/assets/TimelineSVG/church.svg" },
+                { time: "8:30 PM", label: "Recepción", icon: "/assets/TimelineSVG/lunch.svg" },
                 { time: "6:00 PM", label: "Fotos", icon: "/assets/TimelineSVG/photos.svg" },
-                { time: "6:30 PM", label: "Recepción", icon: "/assets/TimelineSVG/lunch.svg" },
-                { time: "8:00 PM", label: "Brindis & cena", icon: "/assets/TimelineSVG/lunch.svg" },
+                { time: "9:00 PM", label: "Brindis & cena", icon: "/assets/TimelineSVG/lunch.svg" },
                 { time: "10:00 PM", label: "Baile", icon: "/assets/TimelineSVG/disco.svg" },
               ]}
               className="px-3"
