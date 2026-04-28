@@ -29,7 +29,8 @@ import {
   Mea_Culpa,
   Tangerine,
   Lavishly_Yours,
-  Rouge_Script
+  Rouge_Script,
+  MonteCarlo
 } from "next/font/google";
 
 type Family = { id: string; nombreFamilia: string; nroPersonas: number };
@@ -46,10 +47,12 @@ const mea_culpa = Mea_Culpa({ subsets: ["latin"], weight: "400", variable: "--fo
 const tangerine = Tangerine({ subsets: ["latin"], weight: "400", variable: "--font-tangerine", display: "swap" });
 const lavishlyYours = Lavishly_Yours({ subsets: ["latin"], weight: "400", variable: "--font-lavishlyyours", display: "swap" });
 const rougeScript = Rouge_Script({ subsets: ["latin"], weight: "400", variable: "--font-rougescript", display: "swap" });
+const montecarlo = MonteCarlo({ subsets: ["latin"], weight: "400", variable: "--font-montecarlo", display: "swap" });
+
 
 const CountdownBanner = dynamic(() => import("@/components/CountdownBanner"), { ssr: false });
 
-const WEDDING_DATE = new Date("2025-12-20T17:00:00");
+const WEDDING_DATE = new Date("2026-05-23T17:00:00");
 
 const CHURCH_NAME = "Iglesia de San Roque, Cuenca";
 const CHURCH_MAPS_URL = "https://maps.app.goo.gl/YRyZSh5wyinbugAH9";
@@ -225,7 +228,6 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
               <div className="mt-4">
                 <BigDate
                   date={WEDDING_DATE}
-                  tone="dark"
                   className={`mx-auto ${cormorant.className}`}
                   dayClassName={greatVibes.className}
                   labelsClassName={lora.className}
@@ -268,8 +270,10 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
               "sm:[--corner:clamp(52px,16vw,210px)]",
             ].join(" ")}
           >
+            {/* Se agregó 'text-center' a este div contenedor */}
             <div
               className="
+                text-center
                 relative z-10 py-6 pb-3
                 bg-white/85 ring-1 ring-white/60
                 shadow-[0_12px_36px_rgba(15,23,42,0.06)]
@@ -292,33 +296,43 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
                 }}
                 priority={false}
               />
-              <div className="text-center">
-                <div className="mx-auto flex max-w-fit items-center justify-center gap-1 text-sm font-medium">
-                  <span className={`${mea_culpa.className} text-4xl sm:text-5xl font-semibold text-slate-600 pt-6`}>
-                    Nuestros Padrinos
-                  </span>
-                </div>
+              <h2
+                className={`${mea_culpa.className} text-[40px] sm:text-[50px] leading-tight mb-12 text-stone-600 `}
+              >
+                Con la bendición de Dios y <br /> nuestros queridos padres
+              </h2>
+
+              {/* 5. Sección: Padres de la novia */}
+              <div className="mb-10">
+                <h3 className={`${mea_culpa.className} text-stone-400 text-[40px] sm:text-[50px] mb-4 font-light`}>
+                  Padres de la novia
+                </h3>
+                <p className={`${montecarlo.className} text-slate-800 text-lg text-[20px] sm:text-[30px] leading-relaxed`}>
+                  Patricio Rojas <br />
+                  Elida Germania Márquez Jiménez
+                </p>
               </div>
-
-              <InfoCard
-                title={<span className="pt-6">Padrinos de Arras</span>}
-                titleClassName={`${mea_culpa.className} text-[34px] sm:text-[40px]`}
-                icon={<Coins className="size-6" style={{ color: "#3579AD" }} />}
-              >
-                <p className={`${tangerine.className} text-[26px] sm:text-[30px]`}>
-                  David Rojas & Jesica Armijos
+              
+              {/* 4. Sección: Padres del novio */}
+              <div className="mb-10">
+                <h3 className={`${mea_culpa.className} text-stone-400 text-[40px] sm:text-[50px] mb-4 font-light`}>
+                  Padres del novio
+                </h3>
+                <p className={`${montecarlo.className} text-slate-800 text-lg text-[20px] sm:text-[30px] leading-relaxed`}>
+                  María Fabiola Palacios Vega <br />
+                  René Fabian Castanier González
                 </p>
-              </InfoCard>
-
-              <InfoCard
-                title={<span className="pt-6">Padrinos de Lazo</span>}
-                titleClassName={`${mea_culpa.className} text-[34px] sm:text-[40px]`}
-                icon={<Infinity className="size-6" style={{ color: "#3579AD" }} />}
-              >
-                <p className={`${tangerine.className} text-[26px] sm:text-[30px]`}>
-                  René Castanier & María Palacios
+              </div>
+              
+              <div className="mb-10">
+                <h3 className={`${mea_culpa.className} text-stone-400 text-[40px] sm:text-[50px] mb-4 font-light`}>
+                  Padrinos de Lazo
+                </h3>
+                <p className={`${montecarlo.className} text-slate-800 text-lg text-[20px] sm:text-[30px] leading-relaxed`}>
+                  David Patricio Rojas Márquez <br />
+                  Jesica Belén Armijos Vivanco
                 </p>
-              </InfoCard>
+              </div>
             </div>
           </section>
         </RevealSection>

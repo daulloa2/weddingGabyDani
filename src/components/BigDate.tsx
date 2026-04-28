@@ -4,25 +4,25 @@
 import * as React from "react";
 
 const MONTHS = [
-  "ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO",
-  "JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"
+  "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
+  "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
 ];
 const WEEKDAYS = [
-  "DOMINGO","LUNES","MARTES","MIÉRCOLES","JUEVES","VIERNES","SÁBADO"
+  "DOMINGO", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO"
 ];
 
 export default function BigDate({
   date,
+  location = "Cuenca",
   className,
   dayClassName,
   labelsClassName,
-  tone = "dark", // "dark" sobre fondo claro, "light" sobre fondo oscuro
 }: {
   date: Date | string | number;
+  location?: string;
   className?: string;
   dayClassName?: string;
   labelsClassName?: string;
-  tone?: "light" | "dark";
 }) {
   const d = new Date(date);
   const year = d.getFullYear();
@@ -30,56 +30,43 @@ export default function BigDate({
   const month = MONTHS[d.getMonth()];
   const dow = WEEKDAYS[d.getDay()];
 
-  const mutedColor  = tone === "light" ? "rgba(255,255,255,0.70)" : "rgba(15,23,42,0.70)";
-  const hairlineCol = tone === "light" ? "rgba(255,255,255,0.45)" : "rgba(15,23,42,0.18)";
+  // Colores extraídos de tu paleta
+  const textColor = "#334155"; // Gris oscuro legible
+  const numberColor = "#1E293B"; // Casi negro para el número
+  const borderColor = "#D5E9F5"; // Lila Suave para las líneas y la píldora
 
   return (
-    <section className={`w-full text-center ${className ?? ""}`} >
-      {/* Mes */}
-      <div
-        className={`uppercase tracking-[0.35em] text-[11px] sm:text-xs ${labelsClassName ?? ""}`}
-        style={{ color: mutedColor }}
-      >
-        {month}
-      </div>
+    <section className={`w-full max-w-3xl mx-auto flex justify-center ${className ?? ""}`}>
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center w-full">
+        
+        {/* --- LADO IZQUIERDO --- */}
+        <div className="text-center py-3 border-y" style={{ borderColor: borderColor }}>
+          <span className={`inline-block whitespace-nowrap uppercase tracking-[0.25em] sm:tracking-[0.35em] text-[10px] sm:text-xs font-medium ${labelsClassName ?? ""}`} style={{ color: textColor }}>
+            {dow}
+          </span>
+        </div>
 
-      {/* Fila en grid: 1fr | auto | 1fr para centrar el día */}
-      <div
-        className="mt-2 grid items-center gap-5 sm:gap-8"
-        style={{ gridTemplateColumns: "1fr auto 1fr" }}
-      >
-        {/* SÁBADO (alineado hacia el centro, con borde arriba/abajo) */}
-        <span
-          className={`justify-self-end inline-block px-3 py-1 whitespace-nowrap uppercase tracking-[0.3em] text-[10px] sm:text-xs ${labelsClassName ?? ""}`}
-          style={{
-            color: mutedColor,
-            borderTop: `1px solid ${hairlineCol}`,
-            borderBottom: `1px solid ${hairlineCol}`,
-          }}
-        >
-          {dow}
-        </span>
+        {/* --- CENTRO --- */}
+        {/* Se eliminó mx-3 sm:mx-5 de este contenedor para que se una a los bordes */}
+        <div className="border rounded-full flex flex-col items-center justify-center py-6 sm:py-8 px-5 sm:px-8 bg-transparent transition-colors duration-300  relative z-10" style={{ borderColor: borderColor }}>
+          <span className={`uppercase tracking-[0.2em] text-[11px] sm:text-sm font-medium mb-3 ${labelsClassName ?? ""}`} style={{ color: textColor }}>
+            {location}
+          </span>
+          <span className={`leading-none font-serif font-light ${dayClassName ?? ""}`} style={{ fontSize: "clamp(56px, 10vw, 85px)", color: numberColor }} aria-label={`Día ${day}`}>
+            {day}
+          </span>
+          <span className={`uppercase tracking-[0.2em] text-[11px] sm:text-sm font-medium mt-3 ${labelsClassName ?? ""}`} style={{ color: textColor }}>
+            {year}
+          </span>
+        </div>
 
-        {/* Día grande — SIEMPRE centrado */}
-        <span
-          className={`leading-none font-light text-blue-950/90 ${dayClassName ?? ""}`}
-          style={{ fontSize: "clamp(64px, 16vw, 120px)", lineHeight: 0.9 }}
-          aria-label={`Día ${day}`}
-        >
-          {day}
-        </span>
+        {/* --- LADO DERECHO --- */}
+        <div className="text-center py-3 border-y" style={{ borderColor: borderColor }}>
+          <span className={`inline-block whitespace-nowrap uppercase tracking-[0.25em] sm:tracking-[0.35em] text-[10px] sm:text-xs font-medium ${labelsClassName ?? ""}`} style={{ color: textColor }}>
+            {month}
+          </span>
+        </div>
 
-        {/* 2025 (alineado hacia el centro, con borde arriba/abajo) */}
-        <span
-          className={`justify-self-start inline-block px-3 py-1 whitespace-nowrap uppercase tracking-[0.3em] text-[10px] sm:text-xs ${labelsClassName ?? ""}`}
-          style={{
-            color: mutedColor,
-            borderTop: `1px solid ${hairlineCol}`,
-            borderBottom: `1px solid ${hairlineCol}`,
-          }}
-        >
-          {year}
-        </span>
       </div>
     </section>
   );
