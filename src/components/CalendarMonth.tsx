@@ -9,6 +9,7 @@ function daysInMonth(d: Date) { return new Date(d.getFullYear(), d.getMonth() + 
 
 const SOFT_BORDER = "#DBEAF5";
 const SOFT_ACCENT = "#D5E9F5";
+const TEXT_COLOR = "#334155";  
 
 export default function CalendarMonth({
   date,
@@ -19,7 +20,7 @@ export default function CalendarMonth({
   date: Date;
   highlightDate?: Date;
   startOnSunday?: boolean;
-  className?: string;       // ← NUEVO
+  className?: string;
 }) {
   const base = startOfMonth(date);
   const total = daysInMonth(date);
@@ -35,7 +36,10 @@ export default function CalendarMonth({
     <div className={`relative w-full select-none ${className ?? ""}`}>
       <div className="border-t" style={{ borderColor: SOFT_BORDER }}>
         {/* cabecera compacta */}
-        <div className="grid grid-cols-7 text-center text-[11px] uppercase tracking-wide text-slate-600">
+        <div
+          className="grid grid-cols-7 text-center text-[11px] uppercase tracking-wide"
+          style={{ color: TEXT_COLOR }}
+        >
           {daysShort.map((d) => (
             <div key={d} className="py-1.5">{d}</div>
           ))}
@@ -54,7 +58,6 @@ export default function CalendarMonth({
               highlight.getDate() === day;
 
             return (
-              // dentro del map de weeks (no cambies nada más)
               <div key={idx} className="h-9 sm:h-10 grid place-items-center text-sm">
                 {day === null ? (
                   <span className="invisible">-</span>
@@ -67,13 +70,18 @@ export default function CalendarMonth({
                         style={{ color: SOFT_ACCENT, transform: "scale(1.35)" }}
                       />
                     )}
-                    <span className={"relative z-10 " + (isHighlight ? "font-semibold text-slate-900" : "text-slate-800")}>
+                    <span
+                      className="relative z-10"
+                      style={{
+                        color: isHighlight ? "#000000" : TEXT_COLOR,
+                        fontWeight: isHighlight ? "700" : "400"
+                      }}
+                    >
                       {day}
                     </span>
                   </div>
                 )}
               </div>
-
             );
           })}
         </div>

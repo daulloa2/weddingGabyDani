@@ -4,16 +4,14 @@
 import Image from "next/image";
 import * as React from "react";
 
-const HIGHLIGHT = "#A7CDE6"; // línea + puntos
-const TEXTTIMELINE = "#7B7C7C";
-const ICON_PAD = "clamp(6px, 1.6vw, 14px)";
+const LINE_COLOR = "#9CB4CC"; 
+const TEXT_COLOR = "#4B5563"; 
 
 type CSSVarProps<T extends string> = React.CSSProperties & Record<T, string>;
 
 export type Item = {
   time: string;
   label: string;
-  side?: "left" | "right"; // ya no se usa pero lo dejamos por compat
   icon?: string;
 };
 
@@ -31,20 +29,24 @@ export default function Timeline({
   itemClassName?: string;
 }) {
   const safeItems = Array.isArray(items) ? items : [];
+  
   const cornerVarStyle: CSSVarProps<"--corner"> = {
-    // un poco más pequeñas que antes
-    ["--corner"]: "clamp(110px,28vw,210px)",
+    ["--corner"]: "clamp(80px, 20vw, 160px)", 
   };
 
   return (
-    <section className={`relative ${className ?? ""}`} style={cornerVarStyle}>
+    <section 
+      className={`relative w-full ${className ?? ""}`} 
+      style={{ ...cornerVarStyle }}
+    >
       {title && (
-        <div className="mb-3 text-center relative z-10">
+        <div className="mb-8 text-center relative z-10 pt-8">
           <div
-            className={`mb-1 tracking-wide mt-3 text-slate-500 ${titleClassName ?? ""}`}
+            className={`tracking-wide mt-3 ${titleClassName ?? ""}`}
             style={{
-              fontSize: "clamp(28px, 6vw, 54px)",
+              fontSize: "clamp(32px, 7vw, 54px)",
               lineHeight: 1.06,
+              color: TEXT_COLOR 
             }}
           >
             {title}
@@ -53,54 +55,42 @@ export default function Timeline({
       )}
 
       {/* FLORES DECORATIVAS */}
-      {/* Superior izquierda (ramo grande) */}
       <Image
         src="/timelineflower1.png"
         alt=""
-        width={400}
-        height={400}
+        width={300}
+        height={300}
         aria-hidden
-        className="
-          pointer-events-none select-none absolute z-0
-          top-[-32px] left-[-20px]
-          sm:top-[-50px] sm:left-[-37px]
-        "
-        style={{
-          width: "calc(0.80 * var(--corner))",
-          height: "auto",
-          rotate: "180deg",
-        }}
+        className="pointer-events-none select-none absolute z-0 bottom-[-20px] right-[-10px]"
+        style={{ width: "calc(0.90 * var(--corner))", height: "auto", rotate: "360deg" }}
         priority={false}
       />
-
-      {/* Inferior derecha (ramo grande) */}
       <Image
         src="/timelineflower1.png"
         alt=""
-        width={400}
-        height={400}
+        width={300}
+        height={300}
         aria-hidden
-        className="
-          pointer-events-none select-none absolute z-0
-          bottom-[-22px] right-[-20px]
-          sm:bottom-[-80px] sm:right-[-35px]
-        "
-        style={{
-          width: "calc(0.80 * var(--corner))",
-          height: "auto",
-        }}
-        priority={false}
+        className="pointer-events-none select-none absolute z-0 top-[-10px] left-[-10px] sm:top-[-10px]"
+        style={{ width: "calc(0.90 * var(--corner))", height: "auto", rotate: "180deg" }}
+        priority={false} 
       />
 
-      <div className="relative mx-auto w-full max-w-[980px] px-2 sm:px-3 overflow-hidden">
-        {/* línea central */}
+      <div className="relative mx-auto w-full max-w-[980px] px-2 sm:px-4 overflow-hidden">
+        
+        {/* LÍNEA VERTICAL CENTRAL CONTINUA */}
         <div
-          className="pointer-events-none absolute inset-y-0 left-1/2 w-px -translate-x-1/2 z-0"
-          style={{ backgroundColor: HIGHLIGHT }}
-        />
+          className="pointer-events-none absolute inset-y-0 left-1/2 w-[1.5px] -translate-x-1/2 z-0"
+          style={{ backgroundColor: LINE_COLOR }}
+        >
+          <div 
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full" 
+            style={{ backgroundColor: LINE_COLOR }}
+          />
+        </div>
 
-        {/* items */}
-        <ol className="relative z-10 mx-auto max-w-[900px] space-y-3 sm:space-y-5">
+        {/* LISTA DE ITEMS */}
+        <ol className="relative z-10 mx-auto w-full max-w-[900px] flex flex-col mt-4 pb-12">
           {safeItems.map((it, i) => (
             <TimelineRow
               key={i}
@@ -108,109 +98,127 @@ export default function Timeline({
               label={it.label}
               icon={it.icon}
               itemClassName={itemClassName}
+              index={i} 
             />
           ))}
         </ol>
-
-        {safeItems.length === 0 && (
-          <div className="sr-only">Sin eventos en el itinerario</div>
-        )}
       </div>
     </section>
   );
 }
 
+// --- SUB-COMPONENTE ROW ---
 function TimelineRow({
   time,
   label,
   icon,
   itemClassName,
+  index,
 }: {
   time: string;
   label: string;
   icon?: string;
   itemClassName?: string;
+  index: number;
 }) {
-  const iconSize = "clamp(40px, 11vw, 72px)";
-  const timeSize = "clamp(14px, 3.4vw, 18px)";
-  const labelSize = "clamp(10px, 2vw, 10px)";
+  // Tamaños ajustados para que no sean tan altos en móvil
+  const iconSize = "clamp(35px, 8vw, 65px)"; 
+  const timeSize = "clamp(11px, 2.8vw, 15px)";
+  const labelSize = "clamp(9px, 2.3vw, 13px)";
+
+  const isRightSide = index % 2 === 0;
 
   return (
-    <li
-      className="
-        relative
-        grid
-        grid-cols-[minmax(90px,1fr)_minmax(90px,1fr)]
-        sm:grid-cols-[minmax(140px,1fr)_minmax(220px,1fr)]
-        items-center
-        py-2
-      "
-    >
-      {/* puntito sobre la línea central */}
-      <span
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full z-10"
-        style={{
-          backgroundColor: HIGHLIGHT,
-          width: "clamp(8px, 1.8vw, 10px)",
-          height: "clamp(8px, 1.8vw, 10px)",
-          display: "block",
-        }}
-      />
-
-      {/* izquierda: hora */}
-      <div className="flex items-center justify-end pr-10 sm:pr-10">
-        <span
-          className={`font-semibold tracking-wide ${itemClassName ?? ""}`}
-          style={{ color: TEXTTIMELINE, fontSize: timeSize }}
-        >
-          {time}
-        </span>
-      </div>
-
-      {/* derecha: SVG arriba y label debajo, ambos CENTRADOS y con ancho fijo */}
-      <div className="flex items-center justify-start sm:pl-6">
-        <div
-          className={`
-            flex flex-col items-center text-center
+    // LA MAGIA OCURRE AQUÍ: mt-[-30px] en móvil hace que las filas se "entrelacen" y reduzcan drásticamente la altura total
+    <li className="relative grid grid-cols-2 w-full items-start sm:items-center mt-[-30px] sm:mt-8 first:mt-0">
+      
+      {/* MITAD IZQUIERDA */}
+      <div className="flex w-full">
+        {!isRightSide && (
+          // pl-4 en lugar de pl-2 para separarlo un poquito más del borde de la pantalla en móvil
+          <div className="w-full pl-4 sm:pl-16 pr-0 flex flex-col">
             
-            ${itemClassName ?? ""}
-          `}
-          style={{
-            width: "min(160px, 40vw)", // todos los SVG+labels alineados
-          }}
-        >
-          {icon && (
-            <div
-              className="relative shrink-0"
-              style={{ padding: ICON_PAD }}
+            {/* Redujimos el pb-3 a pb-1.5 en móvil para ganar espacio */}
+            <div 
+              className="flex flex-col items-center w-full pb-1.5 sm:pb-3"
+              style={{ borderBottom: `1.5px dashed ${LINE_COLOR}` }}
             >
-              <Image
-                src={icon}
-                width={72}
-                height={72}
-                alt=""
-                aria-hidden
-                className="block"
-                style={{ width: iconSize, height: iconSize }}
-                priority={false}
-              />
+              {icon && (
+                <div className="relative shrink-0 mb-1.5 sm:mb-3">
+                  <Image 
+                    src={icon} 
+                    width={75} height={75} 
+                    alt="" aria-hidden 
+                    className="block" 
+                    style={{ width: iconSize, height: iconSize }} 
+                    priority={false}
+                  />
+                </div>
+              )}
+              <span 
+                className={`uppercase tracking-[0.15em] text-center leading-tight ${itemClassName ?? ""}`} 
+                style={{ fontSize: labelSize, color: TEXT_COLOR }}
+              >
+                {label}
+              </span>
             </div>
-          )}
 
-          <span
-            className="uppercase font-semibold "
-            style={{
-              fontSize: labelSize,
-              color: TEXTTIMELINE,
-              letterSpacing: "0.22em",
-              whiteSpace: "normal",
-              overflowWrap: "anywhere",
-            }}
-          >
-            {label}
-          </span>
-        </div>
+            <div className="w-full pt-1.5 sm:pt-2.5 pb-1 sm:pb-2 flex justify-center">
+              <span
+                className="tracking-widest"
+                style={{ color: TEXT_COLOR, fontSize: timeSize }}
+              >
+                {time}
+              </span>
+            </div>
+
+          </div>
+        )}
       </div>
+
+      {/* MITAD DERECHA */}
+      <div className="flex w-full">
+        {isRightSide && (
+          // pr-4 en lugar de pr-2 para separarlo del borde en móvil
+          <div className="w-full pr-4 sm:pr-16 pl-0 flex flex-col">
+            
+            <div 
+              className="flex flex-col items-center w-full pb-1.5 sm:pb-3"
+              style={{ borderBottom: `1.5px dashed ${LINE_COLOR}` }}
+            >
+              {icon && (
+                <div className="relative shrink-0 mb-1.5 sm:mb-3">
+                  <Image 
+                    src={icon} 
+                    width={75} height={75} 
+                    alt="" aria-hidden 
+                    className="block" 
+                    style={{ width: iconSize, height: iconSize }} 
+                    priority={false}
+                  />
+                </div>
+              )}
+              <span 
+                className={`uppercase tracking-[0.15em] text-center leading-tight ${itemClassName ?? ""}`} 
+                style={{ fontSize: labelSize, color: TEXT_COLOR }}
+              >
+                {label}
+              </span>
+            </div>
+
+            <div className="w-full pt-1.5 sm:pt-2.5 pb-1 sm:pb-2 flex justify-center">
+              <span
+                className="tracking-widest"
+                style={{ color: TEXT_COLOR, fontSize: timeSize }}
+              >
+                {time}
+              </span>
+            </div>
+
+          </div>
+        )}
+      </div>
+
     </li>
   );
 }
