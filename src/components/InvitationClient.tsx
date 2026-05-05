@@ -321,8 +321,8 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
                   Padres del novio
                 </h3>
                 <p className={`${montecarlo.className} text-slate-800 text-[24px] sm:text-[30px] leading-relaxed`}>
-                  María Fabiola Palacios Vega <br />
-                  René Fabian Castanier González
+                  René Fabian Castanier González <br />
+                  María Fabiola Palacios Vega
                 </p>
               </div>
             </div>
@@ -425,9 +425,9 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
             <Timeline
               items={[
                 { time: "5:00 PM", label: "Ceremonia", icon: "/assets/TimelineSVG/church.svg" },
-                { time: "8:30 PM", label: "Recepción", icon: "/assets/TimelineSVG/lunch.svg" },
-                { time: "6:00 PM", label: "Fotos", icon: "/assets/TimelineSVG/photos.svg" },
-                { time: "9:00 PM", label: "Brindis & cena", icon: "/assets/TimelineSVG/lunch.svg" },
+                { time: "8:00 PM", label: "Recepción", icon: "/assets/TimelineSVG/lunch.svg" },
+                { time: "8:30 PM", label: "Brindis", icon: "/assets/TimelineSVG/coctel.svg" },
+                { time: "9:00 PM", label: "Cena", icon: "/assets/TimelineSVG/lunch.svg" },
                 { time: "10:00 PM", label: "Baile", icon: "/assets/TimelineSVG/disco.svg" },
               ]}
               className="px-3"
