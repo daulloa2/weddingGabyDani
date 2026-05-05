@@ -476,9 +476,7 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
             titleClassName={`${mea_culpa.className} text-4xl`}
             itemClassName={`${rougeScript.className} text-[26px] sm:text-[33px]`}
             accounts={[
-              { bank: "Cooperativa Coopmego", holder: "Daniel Ulloa", account: "401010838242", dni: "1105002867" },
-              { bank: "Banco de Loja", holder: "Daniel Ulloa", account: "2903926236", dni: "1105002867" },
-              { bank: "Banco Pichincha", holder: "Daniel Ulloa", account: "2206132871", dni: "1105002867" },
+              { bank: "Banco del Austro", holder: "Daniel Esteban Castanier Palacios", account: "0400549877", dni: "0107517088" }
             ]}
           />
         </RevealSection>
