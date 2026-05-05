@@ -18,7 +18,7 @@ export default function ConfirmCard({
   className,
   titleClassName,   // p.ej. greatVibes.className
   textClassName,    // p.ej. lora.className
-  deadlineText = "Por favor confirma tu asistencia antes del 5 de diciembre de 2025",
+  deadlineText = "Por favor confirma tu asistencia antes del 18 de mayo de 2026",
   titleWhenOpen = "Confirmar asistencia",
   titleWhenDone = "¡Gracias por confirmar!",
   titleWhenDeclined = "¡Respuesta registrada!", // 👈 nuevo título para NO
