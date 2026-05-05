@@ -4,9 +4,8 @@
 import Image from "next/image";
 import * as React from "react";
 
-// --- Paleta de colores ajustada al tema Baby Blue / Gris ---
-const LINE_COLOR = "#9CB4CC"; // Azul pastel suave / Baby blue grisáceo
-const TEXT_COLOR = "#4B5563"; // Gris frío (Slate/Cool Gray) para armonizar
+const LINE_COLOR = "#9CB4CC"; 
+const TEXT_COLOR = "#4B5563"; 
 
 type CSSVarProps<T extends string> = React.CSSProperties & Record<T, string>;
 
@@ -31,7 +30,6 @@ export default function Timeline({
 }) {
   const safeItems = Array.isArray(items) ? items : [];
   
-  // Tamaño reducido para las flores (Se mantiene igual)
   const cornerVarStyle: CSSVarProps<"--corner"> = {
     ["--corner"]: "clamp(80px, 20vw, 160px)", 
   };
@@ -39,9 +37,7 @@ export default function Timeline({
   return (
     <section 
       className={`relative w-full ${className ?? ""}`} 
-      style={{ 
-        ...cornerVarStyle,
-      }}
+      style={{ ...cornerVarStyle }}
     >
       {title && (
         <div className="mb-8 text-center relative z-10 pt-8">
@@ -65,12 +61,8 @@ export default function Timeline({
         width={300}
         height={300}
         aria-hidden
-        className="pointer-events-none select-none absolute z-0 bottom-[-20px] right-[-10px] "
-        style={{ 
-          width: "calc(0.90 * var(--corner))", 
-          height: "auto",
-          rotate: "360deg", 
-        }}
+        className="pointer-events-none select-none absolute z-0 bottom-[-20px] right-[-10px]"
+        style={{ width: "calc(0.90 * var(--corner))", height: "auto", rotate: "360deg" }}
         priority={false}
       />
       <Image
@@ -80,11 +72,7 @@ export default function Timeline({
         height={300}
         aria-hidden
         className="pointer-events-none select-none absolute z-0 top-[-10px] left-[-10px] sm:top-[-10px]"
-        style={{ 
-          width: "calc(0.90 * var(--corner))", 
-          height: "auto",
-          rotate: "180deg",
-        }}
+        style={{ width: "calc(0.90 * var(--corner))", height: "auto", rotate: "180deg" }}
         priority={false} 
       />
 
@@ -95,7 +83,6 @@ export default function Timeline({
           className="pointer-events-none absolute inset-y-0 left-1/2 w-[1.5px] -translate-x-1/2 z-0"
           style={{ backgroundColor: LINE_COLOR }}
         >
-          {/* Puntito superior único */}
           <div 
             className="absolute top-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full" 
             style={{ backgroundColor: LINE_COLOR }}
@@ -134,34 +121,34 @@ function TimelineRow({
   itemClassName?: string;
   index: number;
 }) {
-  // CORRECCIÓN: Se aumentó el tamaño mínimo y máximo de los iconos
-  const iconSize = "clamp(45px, 9vw, 65px)"; 
-  const timeSize = "clamp(12px, 3.2vw, 15px)";
-  const labelSize = "clamp(10px, 2.5vw, 13px)";
+  // Tamaños ajustados para que no sean tan altos en móvil
+  const iconSize = "clamp(35px, 8vw, 65px)"; 
+  const timeSize = "clamp(11px, 2.8vw, 15px)";
+  const labelSize = "clamp(9px, 2.3vw, 13px)";
 
   const isRightSide = index % 2 === 0;
 
   return (
-    <li className="relative grid grid-cols-2 w-full items-center mt-4 sm:mt-8 first:mt-0">
+    // LA MAGIA OCURRE AQUÍ: mt-[-30px] en móvil hace que las filas se "entrelacen" y reduzcan drásticamente la altura total
+    <li className="relative grid grid-cols-2 w-full items-start sm:items-center mt-[-30px] sm:mt-8 first:mt-0">
       
       {/* MITAD IZQUIERDA */}
       <div className="flex w-full">
         {!isRightSide && (
-          <div className="w-full pl-2 sm:pl-16 pr-0 flex flex-col">
+          // pl-4 en lugar de pl-2 para separarlo un poquito más del borde de la pantalla en móvil
+          <div className="w-full pl-4 sm:pl-16 pr-0 flex flex-col">
             
+            {/* Redujimos el pb-3 a pb-1.5 en móvil para ganar espacio */}
             <div 
-              className="flex flex-col items-center w-full pb-3"
+              className="flex flex-col items-center w-full pb-1.5 sm:pb-3"
               style={{ borderBottom: `1.5px dashed ${LINE_COLOR}` }}
             >
               {icon && (
-                <div className="relative shrink-0 mb-3">
+                <div className="relative shrink-0 mb-1.5 sm:mb-3">
                   <Image 
                     src={icon} 
-                    // CORRECCIÓN: Se actualizó el width y height base para evitar pérdida de calidad
-                    width={75} 
-                    height={75} 
-                    alt="" 
-                    aria-hidden 
+                    width={75} height={75} 
+                    alt="" aria-hidden 
                     className="block" 
                     style={{ width: iconSize, height: iconSize }} 
                     priority={false}
@@ -176,7 +163,7 @@ function TimelineRow({
               </span>
             </div>
 
-            <div className="w-full pt-2.5 pb-2 flex justify-center">
+            <div className="w-full pt-1.5 sm:pt-2.5 pb-1 sm:pb-2 flex justify-center">
               <span
                 className="tracking-widest"
                 style={{ color: TEXT_COLOR, fontSize: timeSize }}
@@ -192,21 +179,19 @@ function TimelineRow({
       {/* MITAD DERECHA */}
       <div className="flex w-full">
         {isRightSide && (
-          <div className="w-full pr-2 sm:pr-16 pl-0 flex flex-col">
+          // pr-4 en lugar de pr-2 para separarlo del borde en móvil
+          <div className="w-full pr-4 sm:pr-16 pl-0 flex flex-col">
             
             <div 
-              className="flex flex-col items-center w-full pb-3"
+              className="flex flex-col items-center w-full pb-1.5 sm:pb-3"
               style={{ borderBottom: `1.5px dashed ${LINE_COLOR}` }}
             >
               {icon && (
-                <div className="relative shrink-0 mb-3">
+                <div className="relative shrink-0 mb-1.5 sm:mb-3">
                   <Image 
                     src={icon} 
-                    // CORRECCIÓN: Se actualizó el width y height base para evitar pérdida de calidad
-                    width={75} 
-                    height={75} 
-                    alt="" 
-                    aria-hidden 
+                    width={75} height={75} 
+                    alt="" aria-hidden 
                     className="block" 
                     style={{ width: iconSize, height: iconSize }} 
                     priority={false}
@@ -221,7 +206,7 @@ function TimelineRow({
               </span>
             </div>
 
-            <div className="w-full pt-2.5 pb-2 flex justify-center">
+            <div className="w-full pt-1.5 sm:pt-2.5 pb-1 sm:pb-2 flex justify-center">
               <span
                 className="tracking-widest"
                 style={{ color: TEXT_COLOR, fontSize: timeSize }}

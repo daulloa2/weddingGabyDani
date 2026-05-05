@@ -266,19 +266,21 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
         <RevealSection>
           <section
             className={[
-              "[--corner:clamp(112px,38vw,260px)]",
-              "sm:[--corner:clamp(52px,16vw,210px)]",
+              // Reducimos el tamaño en móvil (de 112px a 80px) para que no sea tan invasiva
+              "[--corner:clamp(80px,25vw,200px)]",
+              "sm:[--corner:clamp(120px,16vw,210px)]",
             ].join(" ")}
           >
-            {/* Se agregó 'text-center' a este div contenedor */}
             <div
               className="
-                text-center
-                relative z-10 py-6 pb-3
-                bg-white/85 ring-1 ring-white/60
-                shadow-[0_12px_36px_rgba(15,23,42,0.06)]
-                backdrop-saturate-150
-              "
+        text-center
+        relative z-10 
+        pt-20 pb-6 px-4  /* Aumentamos pt (padding-top) para bajar el texto en móvil */
+        sm:pt-16        /* Ajustamos el padding en desktop */
+        bg-white/85 ring-1 ring-white/60
+        shadow-[0_12px_36px_rgba(15,23,42,0.06)]
+        backdrop-saturate-150
+      "
             >
               <Image
                 src="/blue_leaves.png"
@@ -290,47 +292,37 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
                 style={{
                   width: "var(--corner)",
                   height: "auto",
-                  top: "calc(0.10 * var(--corner))",
-                  left: "calc(-0.10 * var(--corner))",
-                  transform: "rotate(15deg)",
+                  top: "0",    /* La pegamos al borde superior */
+                  left: "0",   /* La pegamos al borde izquierdo */
+                  transform: "rotate(0deg) translate(-10%, -10%)", /* Ajuste fino de posición */
                 }}
                 priority={false}
               />
-              <h2
-                className={`${mea_culpa.className} text-[40px] sm:text-[50px] leading-tight mb-12 text-stone-600 `}
+
+              <h2 className={`${mea_culpa.className} text-[40px] sm:text-[50px] leading-tight mb-12 text-stone-600 `}
               >
                 Con la bendición de Dios y <br /> nuestros queridos padres
               </h2>
 
-              {/* 5. Sección: Padres de la novia */}
-              <div className="mb-10">
-                <h3 className={`${mea_culpa.className} text-stone-400 text-[40px] sm:text-[50px] mb-4 font-light`}>
+              {/* Sección: Padres de la novia */}
+              <div className="mb-10 relative z-10">
+                <h3 className={`${mea_culpa.className} text-stone-400 text-[35px] sm:text-[50px] mb-4 font-light`}>
                   Padres de la novia
                 </h3>
-                <p className={`${montecarlo.className} text-slate-800 text-lg text-[20px] sm:text-[30px] leading-relaxed`}>
-                  Patricio Rojas <br />
+                <p className={`${montecarlo.className} text-slate-800 text-[24px] sm:text-[30px] leading-relaxed`}>
+                  Edgar Patricio Rojas Jaramillo <br />
                   Elida Germania Márquez Jiménez
                 </p>
               </div>
-              
-              {/* 4. Sección: Padres del novio */}
-              <div className="mb-10">
-                <h3 className={`${mea_culpa.className} text-stone-400 text-[40px] sm:text-[50px] mb-4 font-light`}>
+
+              {/* Sección: Padres del novio */}
+              <div className="mb-10 relative z-10">
+                <h3 className={`${mea_culpa.className} text-stone-400 text-[35px] sm:text-[50px] mb-4 font-light`}>
                   Padres del novio
                 </h3>
-                <p className={`${montecarlo.className} text-slate-800 text-lg text-[20px] sm:text-[30px] leading-relaxed`}>
+                <p className={`${montecarlo.className} text-slate-800 text-[24px] sm:text-[30px] leading-relaxed`}>
                   María Fabiola Palacios Vega <br />
                   René Fabian Castanier González
-                </p>
-              </div>
-              
-              <div className="mb-10">
-                <h3 className={`${mea_culpa.className} text-stone-400 text-[40px] sm:text-[50px] mb-4 font-light`}>
-                  Padrinos de Lazo
-                </h3>
-                <p className={`${montecarlo.className} text-slate-800 text-lg text-[20px] sm:text-[30px] leading-relaxed`}>
-                  David Patricio Rojas Márquez <br />
-                  Jesica Belén Armijos Vivanco
                 </p>
               </div>
             </div>
@@ -466,12 +458,12 @@ export default function InvitationClient({ familyIdFromUrl }: { familyIdFromUrl?
             <GalleryCarousel
               aspect={4 / 3}
               images={[
-                { src: "/assets/4.jpg", alt: "Foto 4" },
                 { src: "/assets/5.jpg", alt: "Foto 5" },
                 { src: "/assets/6.jpg", alt: "Foto 6" },
                 { src: "/assets/7.jpg", alt: "Foto 7", objectPosition: "50% 30%" },
-                { src: "/assets/9.jpg", alt: "Foto 9" },
                 { src: "/assets/8.jpg", alt: "Foto 8", objectPosition: "50% 60%" },
+                { src: "/assets/9.jpg", alt: "Foto 9" },
+
               ]}
               className={`${cormorant.className} text-3xl`}
             />
